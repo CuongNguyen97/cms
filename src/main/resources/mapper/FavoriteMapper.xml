@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartreal.cms.mapper.FavoriteMapper">
+    <select id="getProjectFavoriteCount" resultType="_long">
+        SELECT
+            COUNT(p.id)
+        FROM
+            smart_real.project AS p
+        WHERE
+            subject LIKE CONCAT('%', #{subject}, '%')
+    </select>
+
+    <select id="getProjectFavoriteList" resultType="project">
+        SELECT p.id,
+               p.subject,
+               p.price,
+               p.thumbnail_url,
+               p.date_time,
+               (SELECT COUNT(user_id) FROM smart_real.user_favorite uf WHERE uf.project_id = p.id) AS favoriteCount
+        FROM smart_real.project AS p
+        WHERE subject LIKE CONCAT('%', #{subject}, '%')
+        ORDER BY favoriteCount DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="getUserFavoriteByProjectCount" resultType="_long">
+        SELECT
+               COUNT(user_id)
+        FROM
+            smart_real.user_favorite
+        WHERE
+            project_id = #{projectId}
+    </select>
+
+    <select id="getUserFavoriteProjectList" resultType="user">
+        SELECT
+            u.id, username, full_name, phone, email, date_time
+        FROM
+            smart_real.user AS u
+            LEFT JOIN smart_real.user_favorite uf on u.id = uf.user_id
+        WHERE
+            project_id = #{projectId}
+        LIMIT
+            #{offset}, #{size}
+    </select>
+</mapper>

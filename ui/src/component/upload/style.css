@@ -1,0 +1,36 @@
+.image-upload__gallery {
+    border: 1px solid #ccc;
+    margin: 16px auto;
+    width: fit-content;
+}
+
+.image-upload__gallery:hover {
+    border: 1px solid #777;
+}
+
+.image-upload__gallery img {
+    width: 100%;
+    height: auto;
+}
+
+.percent-50 {
+    width: 50%;
+    text-align: center;
+}
+
+.image-upload-component__file_name {
+    display: inline-block;
+    margin: 10px auto auto 5px;
+    text-decoration: #192c3e;
+    font-style: italic;
+}
+
+.image-upload-component__rule_description {
+    display: inline-block;
+    margin: auto auto 10px auto;
+}
+
+.image-upload-component__switch {
+    display: inline-block;
+    margin: auto auto 10px auto;
+}

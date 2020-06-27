@@ -1,0 +1,20 @@
+server:
+  port: ${PORT:8080}
+mybatis:
+  type-aliases-package: com.smartreal.cms.model
+  type-handlers-package: com.smartreal.cms.handler
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+  mapper-locations: classpath:mapper/*.xml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 12345678
+
+logging:
+  level:
+    root: INFO

@@ -1,0 +1,82 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smartreal.cms.mapper.ProjectMapper">
+    <select id="getProjectCount" resultType="_long">
+        SELECT COUNT(id)
+        FROM smart_real.project AS p
+        WHERE subject LIKE CONCAT('%', #{subject}, '%')
+    </select>
+
+    <select id="getProjectList" resultType="project">
+        SELECT id,
+               subject,
+               properties,
+               long_description,
+               price,
+               thumbnail_url,
+               street, ward, district, province,
+               date_time
+        FROM smart_real.project AS p
+        WHERE
+            subject LIKE CONCAT('%', #{subject}, '%')
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="getProjectById" resultType="project">
+        SELECT id,
+               subject,
+               properties,
+               long_description,
+               price,
+               thumbnail_url,
+               street, ward, district, province,
+               date_time
+        FROM smart_real.project AS p
+        WHERE
+            id = #{id}
+    </select>
+
+    <update id="updateProject" parameterType="project">
+        UPDATE smart_real.project
+        SET subject          = #{subject},
+            properties       = #{properties},
+            long_description = #{longDescription},
+            price            = #{price},
+            thumbnail_url    = #{thumbnailUrl},
+            street           = #{street},
+            ward            = #{ward},
+            district         = #{district},
+            province         = #{province}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insertProject" parameterType="project">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT
+                AUTO_INCREMENT
+            FROM
+                INFORMATION_SCHEMA.TABLES
+            WHERE
+                TABLE_SCHEMA = 'smart_real' AND TABLE_NAME = 'project'
+        </selectKey>
+        INSERT INTO smart_real.project(subject,
+                                       properties,
+                                       long_description,
+                                       price,
+                                       thumbnail_url,
+                                       street,
+                                       ward,
+                                       district,
+                                       province)
+        VALUES (#{subject},
+                #{properties},
+                #{longDescription},
+                #{price},
+                #{thumbnailUrl},
+                #{street},
+                #{ward},
+                #{district},
+                #{province})
+    </insert>
+</mapper>
