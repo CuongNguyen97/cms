@@ -19,7 +19,7 @@
     "babel-plugin-import": "^1.12.2",
     "customize-cra": "^0.9.1",
     "react-app-rewired": "^2.1.5",
-    "react-scripts": "^3.3.0"
+    "react-scripts": "^5.0.1"
   },
   "proxy": "http://127.0.0.1:8080",
   "scripts": {
